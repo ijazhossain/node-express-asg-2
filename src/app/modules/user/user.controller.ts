@@ -15,11 +15,8 @@ const createUser = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: 'User not found',
-      error: {
-        code: 404,
-        description: 'User not found!',
-      },
+      message: err.message || 'Something went wrong',
+      error: err,
     });
   }
 };
@@ -34,11 +31,8 @@ const getAllUsers = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: 'User not found',
-      error: {
-        code: 404,
-        description: 'User not found!',
-      },
+      message: err.message || 'Something went wrong',
+      error: err,
     });
   }
 };
@@ -54,11 +48,8 @@ const getSingleUser = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: 'User not found',
-      error: {
-        code: 404,
-        description: 'User not found!',
-      },
+      message: err.message || 'Something went wrong',
+      error: err,
     });
   }
 };
@@ -75,11 +66,8 @@ const updateSingleUser = async (req: Request, res: Response) => {
   } catch (err: any) {
     res.status(500).json({
       success: false,
-      message: 'User update failed',
-      error: {
-        code: 404,
-        description: 'User update failed',
-      },
+      message: err.message || 'Something went wrong',
+      error: err,
     });
   }
 };
