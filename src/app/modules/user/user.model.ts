@@ -1,4 +1,4 @@
-import { Schema, model } from 'mongoose';
+import { Document, Query, Schema, model } from 'mongoose';
 import {
   TAddress,
   TOrder,
@@ -66,6 +66,7 @@ userSchema.statics.isUserExists = async function (userId: string) {
   const existingUser = await User.findOne({ userId });
   return existingUser;
 };
+
 userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(
     this.password,
@@ -77,4 +78,19 @@ userSchema.post('save', function (doc, next) {
   doc.password = undefined as unknown as string;
   next();
 });
+userSchema.post('updateOne', function (doc, next) {
+  if (doc === null) {
+    console.log(doc);
+    throw Error('User do not exists from password!');
+  }
+  console.log(doc);
+  doc.password = undefined as unknown as string;
+
+  next();
+});
+userSchema.pre(/^find/, function (this: Query<TUser, Document>, next) {
+  this.find({ isActive: { $eq: true } });
+  next();
+});
+
 export const User = model<TUser, UserModel>('User', userSchema);
