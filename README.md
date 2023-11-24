@@ -58,7 +58,7 @@ This will run the application using the transpiled javascript files in the `./di
 npm run lint
 ```
 
-9.To automatically fix linting issuess, run:
+9.To automatically fix linting issues, run:
 
 ```bash
 npm run lint-fix
