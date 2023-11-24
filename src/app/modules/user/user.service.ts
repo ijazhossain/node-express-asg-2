@@ -15,6 +15,7 @@ const getAllUsersFromDB = async () => {
     age: 1,
     email: 1,
     address: 1,
+    _id: 0,
   });
   return result;
 };
@@ -24,6 +25,8 @@ const getSingleUserFromDB = async (userId: string) => {
   }
   const result = await User.findOne({ userId }).select({
     password: 0,
+    orders: 0,
+    _id: 0,
   });
   return result;
 };
@@ -40,6 +43,8 @@ const updateSingleUserInDB = async (userId: string, updateData: TUser) => {
     },
   ).select({
     password: 0,
+    _id: 0,
+    orders: 0,
   });
   return result;
 };
@@ -66,7 +71,7 @@ const getAllOrdersForSingleUserFromDB = async (userId: string) => {
   if (!(await User.isUserExists(userId))) {
     throw Error('User do not exists!');
   }
-  const result = await User.findOne({ userId }).select({ orders: 1 });
+  const result = await User.findOne({ userId }).select({ orders: 1, _id: 0 });
   return result;
 };
 const getTotalPriceFromDB = async (userId: string) => {

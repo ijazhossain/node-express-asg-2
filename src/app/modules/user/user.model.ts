@@ -52,7 +52,10 @@ const userSchema = new Schema<TUser>({
     type: String,
     required: [true, 'Email is required'],
   },
-  isActive: { type: Boolean, default: true },
+  isActive: {
+    type: Boolean,
+    required: [true, 'Active status is required'],
+  },
   hobbies: {
     type: [String],
     required: [true, 'Hobbies field is required'],
