@@ -23,9 +23,9 @@ export type TUser = {
   age: number;
   email: string;
   isActive: boolean;
-  hobbies?: string[];
+  hobbies: string[];
   address: TAddress;
-  orders?: TOrder[];
+  orders: TOrder[];
 };
 export interface UserModel extends Model<TUser> {
   // eslint-disable-next-line no-unused-vars

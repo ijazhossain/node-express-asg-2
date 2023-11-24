@@ -53,13 +53,17 @@ const userSchema = new Schema<TUser>({
     required: [true, 'Email is required'],
   },
   isActive: { type: Boolean, default: true },
-  hobbies: { type: [String] },
+  hobbies: {
+    type: [String],
+    required: [true, 'Hobbies field is required'],
+  },
   address: {
     type: addressSchema,
     required: [true, 'Address is required'],
   },
   orders: {
     type: [orderSchema],
+    default: [],
   },
 });
 userSchema.statics.isUserExists = async function (userId: string) {
