@@ -2,5 +2,6 @@ node_modules
 dist
 .vscode
 .env
-.gitignore
+.vercel
 vercel.json
+.gitignore

@@ -8,6 +8,7 @@ import {
 } from './user.interface';
 import bcrypt from 'bcrypt';
 import config from '../../config';
+// creating user schema
 const userNameSchema = new Schema<TUsername>({
   firstName: {
     type: String,
@@ -69,11 +70,12 @@ const userSchema = new Schema<TUser>({
     default: [],
   },
 });
+// static method to check is user exists or not
 userSchema.statics.isUserExists = async function (userId: string) {
   const existingUser = await User.findOne({ userId });
   return existingUser;
 };
-
+// middleware to bcrypt password field
 userSchema.pre('save', async function (next) {
   this.password = await bcrypt.hash(
     this.password,
@@ -81,23 +83,16 @@ userSchema.pre('save', async function (next) {
   );
   next();
 });
+// middleware to hide password field
 userSchema.post('save', function (doc, next) {
   doc.password = undefined as unknown as string;
   next();
 });
-userSchema.post('updateOne', function (doc, next) {
-  if (doc === null) {
-    console.log(doc);
-    throw Error('User do not exists from password!');
-  }
-  console.log(doc);
-  doc.password = undefined as unknown as string;
-
-  next();
-});
+// middleware to find deleted users
 userSchema.pre(/^find/, function (this: Query<TUser, Document>, next) {
   this.find({ isActive: { $eq: true } });
   next();
 });
+// creating User Model
 
 export const User = model<TUser, UserModel>('User', userSchema);

@@ -2,7 +2,7 @@
 import { Request, Response } from 'express';
 import { userValidationSchema } from './user.validation';
 import { UserServices } from './user.service';
-
+// controller to create user
 const createUser = async (req: Request, res: Response) => {
   try {
     const userData = req.body;
@@ -25,6 +25,7 @@ const createUser = async (req: Request, res: Response) => {
     });
   }
 };
+// controller to get all users
 const getAllUsers = async (req: Request, res: Response) => {
   try {
     const result = await UserServices.getAllUsersFromDB();
@@ -41,6 +42,7 @@ const getAllUsers = async (req: Request, res: Response) => {
     });
   }
 };
+// controller to get single user
 const getSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -59,6 +61,7 @@ const getSingleUser = async (req: Request, res: Response) => {
     });
   }
 };
+// controller to update single user
 const updateSingleUser = async (req: Request, res: Response) => {
   try {
     const updateData = req.body;
@@ -77,6 +80,7 @@ const updateSingleUser = async (req: Request, res: Response) => {
     });
   }
 };
+// controller to delete single user
 const deleteSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -94,6 +98,7 @@ const deleteSingleUser = async (req: Request, res: Response) => {
     });
   }
 };
+// controller to add new product in orders
 const addNewProductInOrder = async (req: Request, res: Response) => {
   try {
     const newProduct = req.body;
@@ -115,6 +120,7 @@ const addNewProductInOrder = async (req: Request, res: Response) => {
     });
   }
 };
+// controller to get all orders for a single user
 const getAllOrdersForSingleUser = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -132,6 +138,7 @@ const getAllOrdersForSingleUser = async (req: Request, res: Response) => {
     });
   }
 };
+// controller to get total price for a single user's order
 const getTotalPrice = async (req: Request, res: Response) => {
   try {
     const { userId } = req.params;
@@ -149,6 +156,7 @@ const getTotalPrice = async (req: Request, res: Response) => {
     });
   }
 };
+
 export const UserControllers = {
   createUser,
   getAllUsers,

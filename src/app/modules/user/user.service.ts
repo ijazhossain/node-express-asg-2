@@ -1,6 +1,6 @@
 import { TOrder, TUser } from './user.interface';
 import { User } from './user.model';
-
+// service to create user in DB
 const createUserIntoDB = async (userData: TUser) => {
   if (await User.isUserExists(userData.userId)) {
     throw Error('User already exists!');
@@ -8,6 +8,7 @@ const createUserIntoDB = async (userData: TUser) => {
   const result = await User.create(userData);
   return result;
 };
+// service to get all users from DB
 const getAllUsersFromDB = async () => {
   const result = await User.find().select({
     username: 1,
@@ -19,6 +20,7 @@ const getAllUsersFromDB = async () => {
   });
   return result;
 };
+// service to get single user from DB
 const getSingleUserFromDB = async (userId: string) => {
   if (!(await User.isUserExists(userId))) {
     throw Error('User do not exists!');
@@ -30,6 +32,7 @@ const getSingleUserFromDB = async (userId: string) => {
   });
   return result;
 };
+// service to update single user in DB
 const updateSingleUserInDB = async (userId: string, updateData: TUser) => {
   if (!(await User.isUserExists(userId))) {
     throw Error('User do not exists!');
@@ -48,6 +51,7 @@ const updateSingleUserInDB = async (userId: string, updateData: TUser) => {
   });
   return result;
 };
+// service to delete single user from DB
 const deleteSingleUserFromDB = async (userId: string) => {
   if (!(await User.isUserExists(userId))) {
     throw Error('User do not exists!');
@@ -55,7 +59,7 @@ const deleteSingleUserFromDB = async (userId: string) => {
   const result = await User.updateOne({ userId }, { isActive: false });
   return result;
 };
-// order
+// service to create a new product in order in DB
 const addNewProductInOrderInDB = async (userId: string, newProduct: TOrder) => {
   if (!(await User.isUserExists(userId))) {
     throw Error('User do not exists!');
@@ -66,7 +70,7 @@ const addNewProductInOrderInDB = async (userId: string, newProduct: TOrder) => {
   );
   return result;
 };
-
+// service to get all orders for a single user from DB
 const getAllOrdersForSingleUserFromDB = async (userId: string) => {
   if (!(await User.isUserExists(userId))) {
     throw Error('User do not exists!');
@@ -74,6 +78,7 @@ const getAllOrdersForSingleUserFromDB = async (userId: string) => {
   const result = await User.findOne({ userId }).select({ orders: 1, _id: 0 });
   return result;
 };
+// service to calculate total price for orders for a user in DB
 const getTotalPriceFromDB = async (userId: string) => {
   if (!(await User.isUserExists(userId))) {
     throw Error('User do not exists!');
